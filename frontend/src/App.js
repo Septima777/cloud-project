@@ -1,26 +1,32 @@
 import React from 'react';
-import logo from './logo.svg';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+import Navbar from './components/Navbar';
+import TodoList from './components/TodoList';
+import CreateTodo from './components/CreateTodo';
+import EditTodo from './components/EditTodo';
+
+import { Layout } from 'antd';
+import 'antd/dist/antd.css';
+import * as ROUTE from './constants/routes';
+
+const { Header, Footer, Content } = Layout;
+
+const App = () => (
+  <Router>
+    <Layout>
+      <Header>
+        <Navbar />
+      </Header>
+      <Content>
+        <Route path={ROUTE.TODOLIST} exact component={TodoList}></Route>
+        <Route path={ROUTE.CREATE_TODO} component={CreateTodo}></Route>
+        <Route path={ROUTE.EDIT_TODO} component={EditTodo}></Route>
+      </Content>
+      <Footer>Footer</Footer>
+    </Layout>
+  </Router>
+)
 
 export default App;
