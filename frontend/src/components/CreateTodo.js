@@ -1,21 +1,25 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom';
 import { Form, Input, Rate, DatePicker, Button } from 'antd';
+import axios from 'axios';
+import * as ROUTE from '../constants/routes'
 
 const { TextArea } = Input;
+
 const desc = ['Very low', 'Low', 'Medium', 'High', 'Very high'];
+const INITIAL_STATE = {
+  title: '',
+  description: '',
+  priority: 3,
+  deadline: '',
+  completed: false
+}
 
 class CrateTodo extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      description: '',
-      responsible: '',
-      priority: 3,
-      deadline: '',
-      completed: false
-    }
+    this.state = { ...INITIAL_STATE };
   }
 
   onChange = (event) => {
@@ -37,18 +41,46 @@ class CrateTodo extends Component {
   }
 
   onFinish = () => {
-    const { description, responsible, priority, deadline } = this.state
-    console.log(this.state)
+    const { title, description, priority, deadline } = this.state
+    const newTodo = {
+      title: title,
+      description: description,
+      priority: priority,
+      deadline: deadline,
+      completed: false
+    }
+
+    axios
+      .post('http://localhost:4000/api/todos/add', newTodo)
+      .then(() => {
+        this.setState({ ...INITIAL_STATE });
+        this.props.history.push(ROUTE.TODOLIST);
+      })
+      .catch(function (error) {
+        console.log(error)
+      })
   }
 
   render() {
-    const { description, responsible, priority } = this.state
+    const { title, description, priority } = this.state
 
     return (
       <Form
         className='container'
         onFinish={this.onFinish}
       >
+        <Form.Item
+          name='title'
+          label='Title'
+          rules={[{ required: true, message: 'Please input Title' }]}
+        >
+          <Input
+            name='title'
+            value={title}
+            type='text'
+            onChange={this.onChange}
+          />
+        </Form.Item>
         <Form.Item
           name='description'
           label='Description'
@@ -61,19 +93,9 @@ class CrateTodo extends Component {
             onChange={this.onChange}
           />
         </Form.Item>
-        <Form.Item
-          name='responsible'
-          label='Responsible'
-          rules={[{ required: true, message: 'Please input responsible' }]}
+        <Form.Item 
+          label='Priority'
         >
-          <TextArea
-            name='responsible'
-            value={responsible}
-            type='text'
-            onChange={this.onChange}
-          />
-        </Form.Item>
-        <Form.Item label='Priority'>
           <Rate
             tooltips={desc}
             onChange={this.onPriorityChange}
@@ -83,7 +105,7 @@ class CrateTodo extends Component {
         </Form.Item>
         <Form.Item
           name='deadline'
-          label='DatePicker'
+          label='Deadline'
           rules={[{ type: 'object', required: true, message: 'Please select date.' }]}
         >
           <DatePicker onChange={this.onDateChange} />
