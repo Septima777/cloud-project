@@ -1,16 +1,16 @@
+const functions = require('firebase-functions');
 const express = require('express')
 const app = express()
 const bodyParser = require('body-parser')
 const cors = require('cors')
-const PORT = 4000
-const mysql = require('mysql');
+const mysql = require('mysql')
 const config = require('./config')
 const connection = mysql.createConnection(config);
 
-const todosRoute = require('./route/todos')
-
 app.use(cors())
 app.use(bodyParser.json())
+
+const todosRoute = require('./route/todos')
 
 // connect to the MySQL server
 connection.connect((err) => {
@@ -39,8 +39,9 @@ connection.connect((err) => {
   });
 });
 
-app.listen(PORT, () => {
-  console.log('Server is running on Port: ' + PORT)
-})
+// Create and Deploy Your First Cloud Functions
+// https://firebase.google.com/docs/functions/write-firebase-functions
 
 app.use('/api/todos', todosRoute)
+
+exports.app = functions.https.onRequest(app);

@@ -4,21 +4,21 @@ const router = express.Router()
 const config = require('../config')
 let connection = mysql.createConnection(config);
 
-router.get('/', async (req, res) => {
+router.get('/', (req, res) => {
   connection.query('SELECT * FROM todos', (err, result, fields) => {
     if (err) throw err
     res.status(200).send(result)
   })
 })
 
-router.get('/:id', async (req, res) => {
+router.get('/:id', (req, res) => {
   connection.query(`SELECT * FROM todos  where id= '${req.params.id}'`, (err, result, fields) => {
     if (err) throw err
     res.status(200).send(result)
   })
 })
 
-router.post('/add', async (req, res) => {
+router.post('/add', (req, res) => {
   const todo = {
     title: req.body.title,
     description: req.body.description,
@@ -33,7 +33,7 @@ router.post('/add', async (req, res) => {
   });
 })
 
-router.put('/update/:id', async (req, res) => {
+router.put('/update/:id', (req, res) => {
   const updateTodo = {
     title: req.body.title,
     description: req.body.description,
@@ -51,7 +51,7 @@ router.put('/update/:id', async (req, res) => {
   })
 })
 
-router.delete('/remove/:id', async (req, res) => {
+router.delete('/remove/:id', (req, res) => {
   connection.query(`DELETE FROM todos WHERE id= '${req.params.id}'`, (err, result, fields) => {
     if (err) throw err
     if (!result) {
