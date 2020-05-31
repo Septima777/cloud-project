@@ -51,7 +51,7 @@ class CrateTodo extends Component {
     }
 
     axios
-      .post('http://localhost:4000/api/todos/add', newTodo)
+      .post('https://cloud-back-3fbd4.web.app/api/todos/add', newTodo)
       .then(() => {
         this.setState({ ...INITIAL_STATE });
         this.props.history.push(ROUTE.TODOLIST);

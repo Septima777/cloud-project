@@ -28,7 +28,7 @@ class EditTodo extends Component {
     var location = this.props.history.location.pathname
     var id = location.split('/')
     axios
-      .get(`http://localhost:4000/api/todos/${id[2]}`)
+      .get(`https://cloud-back-3fbd4.web.app/api/todos/${id[2]}`)
       .then((res) => {
         this.setState({
           id: id[2],
@@ -79,7 +79,7 @@ class EditTodo extends Component {
     }
 
     axios
-      .put(`http://localhost:4000/api/todos/update/${id}`, updateTodo)
+      .put(`https://cloud-back-3fbd4.web.app/api/todos/update/${id}`, updateTodo)
       .then(() => {
         this.setState({ ...INITIAL_STATE });
         this.props.history.push(ROUTE.TODOLIST);
@@ -91,7 +91,7 @@ class EditTodo extends Component {
 
   onDelete = (id) => {
     axios
-      .delete(`http://localhost:4000/api/todos/remove/${id}`)
+      .delete(`https://cloud-back-3fbd4.web.app/api/todos/remove/${id}`)
       .then(() => {
         this.props.history.push(ROUTE.TODOLIST);
       })

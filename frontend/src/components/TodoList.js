@@ -76,7 +76,7 @@ export default class TodoList extends Component {
 
   componentDidMount() {
     axios
-      .get('http://localhost:4000/api/todos')
+      .get('https://cloud-back-3fbd4.web.app/api/todos')
       .then((res) => {
         this.setState({
           todos: res.data
@@ -97,10 +97,10 @@ export default class TodoList extends Component {
 
   onDelete = (id) => {
     axios
-      .delete(`http://localhost:4000/api/todos/remove/${id}`)
+      .delete(`https://cloud-back-3fbd4.web.app/api/todos/remove/${id}`)
       .then(() => {
         axios
-          .get('http://localhost:4000/api/todos')
+          .get('https://cloud-back-3fbd4.web.app/api/todos')
           .then((res) => {
             this.setState({
               todos: res.data
