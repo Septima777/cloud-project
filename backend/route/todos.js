@@ -51,4 +51,14 @@ router.put('/update/:id', async (req, res) => {
   })
 })
 
+router.delete('/remove/:id', async (req, res) => {
+  connection.query(`DELETE FROM todos WHERE id= '${req.params.id}'`, (err, result, fields) => {
+    if (err) throw err
+    if (!result) {
+      res.status(404).send('Todo not found.')
+    }
+    res.status(200).send(true)
+  })
+})
+
 module.exports = router
