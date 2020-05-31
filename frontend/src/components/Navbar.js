@@ -5,8 +5,7 @@ import * as ROUTE from '../constants/routes';
 
 const Navigation = () => (
   <Row>
-    <Col span={12}></Col>
-    <Col span={12}>
+    <Col span={24}>
       <Menu
         theme='dark'
         mode='horizontal'

@@ -11,7 +11,7 @@ import { Layout } from 'antd';
 import 'antd/dist/antd.css';
 import * as ROUTE from './constants/routes';
 
-const { Header, Footer, Content } = Layout;
+const { Header, Content } = Layout;
 
 const App = () => (
   <Router>
@@ -24,7 +24,6 @@ const App = () => (
         <Route path={ROUTE.CREATE_TODO} component={CreateTodo}></Route>
         <Route path={ROUTE.EDIT_TODO} component={EditTodo}></Route>
       </Content>
-      <Footer>Footer</Footer>
     </Layout>
   </Router>
 )

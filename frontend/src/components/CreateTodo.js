@@ -65,57 +65,51 @@ class CrateTodo extends Component {
     const { title, description, priority } = this.state
 
     return (
-      <Form
-        className='container'
-        onFinish={this.onFinish}
-      >
-        <Form.Item
-          name='title'
-          label='Title'
-          rules={[{ required: true, message: 'Please input Title' }]}
-        >
-          <Input
-            name='title'
-            value={title}
-            type='text'
-            onChange={this.onChange}
-          />
-        </Form.Item>
-        <Form.Item
-          name='description'
-          label='Description'
-          rules={[{ required: true, message: 'Please input your description' }]}
-        >
-          <TextArea
-            name='description'
-            value={description}
-            type='text'
-            onChange={this.onChange}
-          />
-        </Form.Item>
-        <Form.Item 
-          label='Priority'
-        >
-          <Rate
-            tooltips={desc}
-            onChange={this.onPriorityChange}
-            value={priority}
-          />
-          {priority ? <span className='ant-rate-text'>{desc[priority - 1]}</span> : ''}
-        </Form.Item>
-        <Form.Item
-          name='deadline'
-          label='Deadline'
-          rules={[{ type: 'object', required: true, message: 'Please select date.' }]}
-        >
-          <DatePicker onChange={this.onDateChange} />
-        </Form.Item>
-        <Form.Item>
-          <Button type='primary' htmlType='submit'>
-            Create
+      <div className='container'>
+        <Form onFinish={this.onFinish}>
+          <Form.Item
+            label='Title'
+            rules={[{ required: true, message: 'Please input Title' }]}
+          >
+            <Input
+              name='title'
+              value={title}
+              type='text'
+              onChange={this.onChange}
+            />
+          </Form.Item>
+          <Form.Item
+            label='Description'
+            rules={[{ required: true, message: 'Please input your description' }]}
+          >
+            <TextArea
+              name='description'
+              value={description}
+              type='text'
+              onChange={this.onChange}
+            />
+          </Form.Item>
+          <Form.Item label='Priority'>
+            <Rate
+              tooltips={desc}
+              onChange={this.onPriorityChange}
+              value={priority}
+            />
+            {priority ? <span className='ant-rate-text'>{desc[priority - 1]}</span> : ''}
+          </Form.Item>
+          <Form.Item
+            label='Deadline'
+            rules={[{ type: 'object', required: true, message: 'Please select date.' }]}
+          >
+            <DatePicker onChange={this.onDateChange} />
+          </Form.Item>
+          <Form.Item>
+            <Button type='primary' htmlType='submit'>
+              Create
         </Button>
-        </Form.Item>
-      </Form>
+          </Form.Item>
+        </Form>
+      </div>
     )
   }
 }
